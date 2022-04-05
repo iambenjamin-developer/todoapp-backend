@@ -63,7 +63,7 @@ namespace WebApi.Services
 
             _context.Remove(entity);
 
-           
+
             var result = await _context.SaveChangesAsync();
 
             if (result == 1)
@@ -74,10 +74,21 @@ namespace WebApi.Services
             {
                 return false;
             }
-            
+
         }
 
+        public async Task UpdateAsync(UpdateToDoItemsDto updateToDoItemsDto)
+        {
+            foreach (var ToDoItemId in updateToDoItemsDto.ToDoItemIds)
+            {
+                var entity = await _context.ToDoItems
+                          .Where(x => x.Id == ToDoItemId)
+                          .FirstOrDefaultAsync();
 
-       
+                entity.IsCompleted = updateToDoItemsDto.CheckToDoItemsLikeCompleted;
+            }
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

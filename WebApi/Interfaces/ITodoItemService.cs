@@ -13,6 +13,8 @@ namespace WebApi.Interfaces
 
         Task<ToDoItem> AddAsync(AddTodoItemDto addTodoItemDto);
 
+        Task UpdateAsync(UpdateToDoItemsDto updateToDoItemsDto);
+
         Task<bool> DeleteByIdAsync(int id);
 
     }
