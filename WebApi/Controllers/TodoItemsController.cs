@@ -121,39 +121,40 @@ namespace WebApi.Controllers
             return new NoContentResult();
         }
 
-        /*
+
         /// <summary>
-        /// Updates one o more ToDoItem in the List
+        /// Updates the state of a ToDoItem 
         /// </summary>
-        /// <param name="updateToDoItemsDto">ToDoItem Id's to be updated</param>
-        /// <response code="201">Updated successfully</response>
-        /// <response code="400">Bad request, invalid input information was supplied</response>
+        /// <param name="id">ToDoItem identifier</param>
+        /// <param name="updateToDoItemDto">ToDoItem information to be updated</param>
+        /// <response code="204">Updated successfully</response>
         /// <response code="401">Your user account does not contain the authorization required to access this API end-point</response>
         /// <response code="403">Your user account does not have permission to access this resource</response>
-        [HttpPut]
+        /// <response code="404">Not found</response>
+        [HttpPut("{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = null)]
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = null)]
-        public async Task<ActionResult> Put([FromBody] UpdateToDoItemsDto updateToDoItemsDto)
+        [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
+        public async Task<ActionResult> UpdateById(int id, [FromBody] UpdateToDoItemDto updateToDoItemDto)
         {
-            if (updateToDoItemsDto == null || updateToDoItemsDto.ToDoItemIds.Count == 0)
-            {
-                return new BadRequestObjectResult("ToDoItemIds have to have at least one ToDoItem");
-            }
+            var result = await _todoItemService.UpdateByIdAsync(id, updateToDoItemDto);
 
-            await _todoItemService.UpdateAsync(updateToDoItemsDto);
+            if (result == false)
+            {
+                return new NotFoundObjectResult($"ToDoItem Id: { id } not found");
+            }
 
             return new NoContentResult();
         }
 
-        */
+
 
         /// <summary>
         /// Updates a range of ToDoItems
         /// </summary>
         /// <param name="updateRangeToDoItemsDto">ToDoItem Id's to be updated</param>
-        /// <response code="201">Updated successfully</response>
+        /// <response code="204">Updated successfully</response>
         /// <response code="400">Bad request, invalid input information was supplied</response>
         /// <response code="401">Your user account does not contain the authorization required to access this API end-point</response>
         /// <response code="403">Your user account does not have permission to access this resource</response>

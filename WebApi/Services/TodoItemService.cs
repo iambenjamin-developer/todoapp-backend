@@ -85,10 +85,28 @@ namespace WebApi.Services
                           .Where(x => x.Id == toDoItemId)
                           .FirstOrDefaultAsync();
 
-                entity.IsCompleted = updateRangeToDoItemsDto.CheckToDoItemsLikeCompleted;
+                entity.IsCompleted = updateRangeToDoItemsDto.MarkAsCompleted;
             }
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateByIdAsync(int id, UpdateToDoItemDto updateToDoItemDto)
+        {
+            var entity = await _context.ToDoItems
+                      .Where(x => x.Id == id)
+                      .FirstOrDefaultAsync();
+
+            if (entity == null)
+            {
+                return false;
+            }
+
+            entity.IsCompleted = updateToDoItemDto.MarkAsCompleted;
+
+            await _context.SaveChangesAsync();
+
+            return true;
         }
     }
 }
