@@ -121,7 +121,7 @@ namespace WebApi.Controllers
             return new NoContentResult();
         }
 
-
+        /*
         /// <summary>
         /// Updates one o more ToDoItem in the List
         /// </summary>
@@ -143,6 +143,34 @@ namespace WebApi.Controllers
             }
 
             await _todoItemService.UpdateAsync(updateToDoItemsDto);
+
+            return new NoContentResult();
+        }
+
+        */
+
+        /// <summary>
+        /// Updates a range of ToDoItems
+        /// </summary>
+        /// <param name="updateRangeToDoItemsDto">ToDoItem Id's to be updated</param>
+        /// <response code="201">Updated successfully</response>
+        /// <response code="400">Bad request, invalid input information was supplied</response>
+        /// <response code="401">Your user account does not contain the authorization required to access this API end-point</response>
+        /// <response code="403">Your user account does not have permission to access this resource</response>
+        [HttpPut]
+        [Route("Range")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = null)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden, Type = null)]
+        public async Task<ActionResult> UpdateRange([FromBody] UpdateRangeToDoItemsDto updateRangeToDoItemsDto)
+        {
+            if (updateRangeToDoItemsDto == null || updateRangeToDoItemsDto.ToDoItemIds.Count == 0)
+            {
+                return new BadRequestObjectResult("ToDoItemIds have to have at least one ToDoItem");
+            }
+
+            await _todoItemService.UpdateRangeToDoItemsAsync(updateRangeToDoItemsDto);
 
             return new NoContentResult();
         }

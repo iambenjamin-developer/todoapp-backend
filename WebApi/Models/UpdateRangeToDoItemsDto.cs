@@ -2,7 +2,7 @@
 
 namespace WebApi.Models
 {
-    public class UpdateToDoItemsDto
+    public class UpdateRangeToDoItemsDto
     {
         public List<int> ToDoItemIds { get; set; }
         public bool CheckToDoItemsLikeCompleted { get; set; }

@@ -77,15 +77,15 @@ namespace WebApi.Services
 
         }
 
-        public async Task UpdateAsync(UpdateToDoItemsDto updateToDoItemsDto)
+        public async Task UpdateRangeToDoItemsAsync(UpdateRangeToDoItemsDto updateRangeToDoItemsDto)
         {
-            foreach (var ToDoItemId in updateToDoItemsDto.ToDoItemIds)
+            foreach (var toDoItemId in updateRangeToDoItemsDto.ToDoItemIds)
             {
                 var entity = await _context.ToDoItems
-                          .Where(x => x.Id == ToDoItemId)
+                          .Where(x => x.Id == toDoItemId)
                           .FirstOrDefaultAsync();
 
-                entity.IsCompleted = updateToDoItemsDto.CheckToDoItemsLikeCompleted;
+                entity.IsCompleted = updateRangeToDoItemsDto.CheckToDoItemsLikeCompleted;
             }
 
             await _context.SaveChangesAsync();
