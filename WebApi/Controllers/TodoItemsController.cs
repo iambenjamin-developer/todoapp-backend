@@ -84,10 +84,9 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = null)]
         public async Task<ActionResult> Post([FromBody] AddTodoItemDto addTodoItemDto)
         {
-            if (string.IsNullOrEmpty(addTodoItemDto.Name))
+            if (string.IsNullOrEmpty(addTodoItemDto.Name) || addTodoItemDto.Name.Length < 3)
             {
-
-                return new BadRequestObjectResult("Name should not be null or empty");
+                return new BadRequestObjectResult("Name must be at most 3 characters long");
             }
 
             var result = await _todoItemService.AddAsync(addTodoItemDto);
