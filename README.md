@@ -2,12 +2,12 @@
 
 ## Construir imagen
 ```
-docker build -t backend .
+docker build -t todo-app-backend .
 ```
 
 ## Correr la imagen en el puerto 5024
 ```
-docker run -d -p 5025:5025 backend
+docker run -d -p 5025:5025 todo-app-backend
 ```
 
 ## Verificar funcionamiento
