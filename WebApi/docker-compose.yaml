@@ -2,12 +2,12 @@ version: "3.7"
 
 services:
 
-  sql-server-db:
+  ms-sql-server:
     image: mcr.microsoft.com/mssql/server:2019-latest
     ports:
-      - 1433:1433
+      - 1450:1433
     environment:
-      - SA_PASSWORD=Password1!
+      - SA_PASSWORD=2Secure*Password2
       - ACCEPT_EULA=Y
 
   todo-app-backend:
@@ -16,13 +16,14 @@ services:
     - 5025:5025
     environment:
     - ASPNETCORE_URLS=http://0.0.0.0:5025
-    - DefaultConnection=Server=sql-server-db;Database=MyDockerToDoDb;User Id=sa;Password=Password1!;
+    - ASPNETCORE_ENVIRONMENT=Development
+    - ConnectionStrings__DefaultConnection=Initial Catalog=MyDockerToDoDb; Data Source=ms-sql-server,1450; Persist Security Info=True;User ID=SA;Password= 2Secure*Password2
     build:
         context: .
         dockerfile: Dockerfile
     container_name: todo-app-backend
     depends_on:
-    - sql-server-db
+    - ms-sql-server
 
   # todo-frontend-app:
   #   image: todo-frontend-app
@@ -30,5 +31,5 @@ services:
   #     context: .
   #     dockerfile: todoapp-frontend/Dockerfile
   #   depends_on:
-  #     - sql-server-db
+  #     - ms-sql-server
   #     - backend-app

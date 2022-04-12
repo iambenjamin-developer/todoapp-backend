@@ -23,6 +23,7 @@ docker pull mcr.microsoft.com/mssql/server:2019-latest
 ```
 
 ## Correr imagen de SQL Server 2019 y configurar password
+
 ```
-docker run --name sqlserver -p 1433:1433 -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Password1!" -d mcr.microsoft.com/mssql/server:2019-latest
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=2Secure*Password2" -p 1450:1433 --name sqlserverdb -h mysqlserver -d mcr.microsoft.com/mssql/server:2019-latest
 ```
