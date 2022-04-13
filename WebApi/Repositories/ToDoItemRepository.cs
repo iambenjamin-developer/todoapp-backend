@@ -12,7 +12,6 @@ namespace WebApi.Repositories
 {
     public class ToDoItemRepository : IToDoItemRepository
     {
-
         private readonly ApplicationDbContext _context;
 
         public ToDoItemRepository(ApplicationDbContext context)
@@ -53,7 +52,6 @@ namespace WebApi.Repositories
 
         public async Task<bool> DeleteByIdAsync(int id)
         {
-
             var entity = await _context.ToDoItems
                          .Where(x => x.Id == id)
                          .FirstOrDefaultAsync();
