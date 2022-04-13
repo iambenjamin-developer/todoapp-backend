@@ -10,13 +10,13 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TodoItemsController : ControllerBase
+    public class ToDoItemsController : ControllerBase
     {
-        private readonly ITodoItemService _todoItemService;
+        private readonly IToDoItemService _toDoItemService;
 
-        public TodoItemsController(ITodoItemService todoItemService)
+        public ToDoItemsController(IToDoItemService toDoItemService)
         {
-            _todoItemService = todoItemService;
+            _toDoItemService = toDoItemService;
         }
 
 
@@ -35,7 +35,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = null)]
         public async Task<ActionResult> GetAll()
         {
-            var result = await _todoItemService.GetAllAsync();
+            var result = await _toDoItemService.GetAllAsync();
             return new OkObjectResult(result);
         }
 
@@ -55,7 +55,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<ActionResult<ToDoItem>> GetById(int id)
         {
-            var result = await _todoItemService.GetByIdAsync(id);
+            var result = await _toDoItemService.GetByIdAsync(id);
 
             if (result == null)
             {
@@ -69,7 +69,7 @@ namespace WebApi.Controllers
         /// <summary>
         /// Adds a ToDoItem to List
         /// </summary>
-        /// <param name="addTodoItemDto">ToDoItem information to be created</param>
+        /// <param name="addToDoItemDto">ToDoItem information to be created</param>
         /// <returns>
         ///  An instance of <see cref="ToDoItem"/>
         /// </returns>
@@ -82,14 +82,14 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = null)]
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = null)]
-        public async Task<ActionResult> Post([FromBody] AddTodoItemDto addTodoItemDto)
+        public async Task<ActionResult> Post([FromBody] AddToDoItemDto addToDoItemDto)
         {
-            if (string.IsNullOrEmpty(addTodoItemDto.Name) || addTodoItemDto.Name.Length < 3)
+            if (string.IsNullOrEmpty(addToDoItemDto.Name) || addToDoItemDto.Name.Length < 3)
             {
                 return new BadRequestObjectResult("Name must be at most 3 characters long");
             }
 
-            var result = await _todoItemService.AddAsync(addTodoItemDto);
+            var result = await _toDoItemService.AddAsync(addToDoItemDto);
 
             return CreatedAtAction(nameof(GetById), new { id = result.Id }, result);
 
@@ -110,7 +110,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<ActionResult> Delete(int id)
         {
-            var result = await _todoItemService.DeleteByIdAsync(id);
+            var result = await _toDoItemService.DeleteByIdAsync(id);
 
             if (result == false)
             {
@@ -137,7 +137,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
         public async Task<ActionResult> UpdateById(int id, [FromBody] UpdateToDoItemDto updateToDoItemDto)
         {
-            var result = await _todoItemService.UpdateByIdAsync(id, updateToDoItemDto);
+            var result = await _toDoItemService.UpdateByIdAsync(id, updateToDoItemDto);
 
             if (result == false)
             {
@@ -170,7 +170,7 @@ namespace WebApi.Controllers
                 return new BadRequestObjectResult("ToDoItemIds have to have at least one ToDoItem");
             }
 
-            await _todoItemService.UpdateRangeToDoItemsAsync(updateRangeToDoItemsDto);
+            await _toDoItemService.UpdateRangeToDoItemsAsync(updateRangeToDoItemsDto);
 
             return new NoContentResult();
         }

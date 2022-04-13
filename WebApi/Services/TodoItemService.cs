@@ -9,11 +9,11 @@ using WebApi.Models;
 
 namespace WebApi.Services
 {
-    public class TodoItemService : ITodoItemService
+    public class ToDoItemService : IToDoItemService
     {
         private readonly ApplicationDbContext _context;
 
-        public TodoItemService(ApplicationDbContext context)
+        public ToDoItemService(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -34,7 +34,7 @@ namespace WebApi.Services
             return result;
         }
 
-        public async Task<ToDoItem> AddAsync(AddTodoItemDto addTodoItemDto)
+        public async Task<ToDoItem> AddAsync(AddToDoItemDto addTodoItemDto)
         {
             var entity = new ToDoItem
             {

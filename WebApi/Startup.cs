@@ -50,7 +50,7 @@ namespace WebApi
                 c.IncludeXmlComments(xmlPath);
             });
 
-            services.AddScoped<ITodoItemService, TodoItemService>();
+            services.AddScoped<IToDoItemService, ToDoItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

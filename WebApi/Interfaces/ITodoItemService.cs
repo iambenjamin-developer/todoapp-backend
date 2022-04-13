@@ -5,13 +5,13 @@ using WebApi.Models;
 
 namespace WebApi.Interfaces
 {
-    public interface ITodoItemService
+    public interface IToDoItemService
     {
         Task<List<ToDoItem>> GetAllAsync();
 
         Task<ToDoItem> GetByIdAsync(int id);
 
-        Task<ToDoItem> AddAsync(AddTodoItemDto addTodoItemDto);
+        Task<ToDoItem> AddAsync(AddToDoItemDto addTodoItemDto);
 
         Task<bool> UpdateByIdAsync(int id, UpdateToDoItemDto updateToDoItemDto);
 
