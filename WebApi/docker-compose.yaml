@@ -25,14 +25,14 @@ services:
     depends_on:
     - ms-sql-server
 
-  # todo-app-frontend:
-  #   image: todo-app-frontend
-  #   ports:
-  #   - 8080:8080
-  #   build:
-  #       context: .
-  #       dockerfile: ../../todoapp-frontend/Dockerfile
-  #   container_name: todo-app-backend
-  #   depends_on:
-  #   - ms-sql-server
-  #   - todo-app-backend
+  todo-app-frontend:
+    image: todo-app-frontend
+    ports:
+    - 8080:8080
+    build:
+        context: ../../todoapp-frontend/.
+        dockerfile: Dockerfile
+    container_name: todo-app-frontend
+    depends_on:
+    - ms-sql-server
+    - todo-app-backend
