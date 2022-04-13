@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace WebApi.Migrations
+namespace WebApi.Infrastructure.Migrations
 {
     public partial class Initial : Migration
     {
@@ -12,8 +13,9 @@ namespace WebApi.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "varchar(256)", unicode: false, maxLength: 256, nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false)
+                    TaskName = table.Column<string>(type: "varchar(256)", unicode: false, maxLength: 256, nullable: false),
+                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    DateCompleted = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
