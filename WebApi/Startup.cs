@@ -16,6 +16,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using WebApi.Infrastructure;
 using WebApi.Interfaces;
+using WebApi.Repositories;
 using WebApi.Services;
 
 namespace WebApi
@@ -51,6 +52,8 @@ namespace WebApi
             });
 
             services.AddScoped<IToDoItemService, ToDoItemService>();
+            services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
