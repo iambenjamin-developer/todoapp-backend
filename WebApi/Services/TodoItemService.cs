@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using AutoMapper;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Entities;
 using WebApi.Interfaces;
@@ -9,31 +10,39 @@ namespace WebApi.Services
     public class ToDoItemService : IToDoItemService
     {
         private readonly IToDoItemRepository _toDoItemRepository;
+        private readonly IMapper _mapper;
 
-        public ToDoItemService(IToDoItemRepository toDoItemRepository)
+        public ToDoItemService(IToDoItemRepository toDoItemRepository, IMapper mapper)
         {
             _toDoItemRepository = toDoItemRepository;
+            _mapper = mapper;
         }
 
-        public async Task<List<ToDoItem>> GetAllAsync()
+        public async Task<List<ToDoItemDto>> GetAllAsync()
         {
-            var result = await _toDoItemRepository.GetAllAsync();
+            var entities = await _toDoItemRepository.GetAllAsync();
 
-            return result;
+            var dtos = _mapper.Map<List<ToDoItem>, List<ToDoItemDto>>(entities);
+
+            return dtos;
         }
 
-        public async Task<ToDoItem> GetByIdAsync(int id)
+        public async Task<ToDoItemDto> GetByIdAsync(int id)
         {
-            var result = await _toDoItemRepository.GetByIdAsync(id);
+            var entity = await _toDoItemRepository.GetByIdAsync(id);
 
-            return result;
+            var dto = _mapper.Map<ToDoItem, ToDoItemDto>(entity);
+
+            return dto;
         }
 
-        public async Task<ToDoItem> AddAsync(AddToDoItemDto addTodoItemDto)
+        public async Task<ToDoItemDto> AddAsync(AddToDoItemDto addTodoItemDto)
         {
             var entity = await _toDoItemRepository.AddAsync(addTodoItemDto);
 
-            return entity;
+            var dto = _mapper.Map<ToDoItem, ToDoItemDto>(entity);
+
+            return dto;
         }
 
         public async Task<bool> DeleteByIdAsync(int id)

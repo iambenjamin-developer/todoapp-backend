@@ -7,11 +7,11 @@ namespace WebApi.Interfaces
 {
     public interface IToDoItemService
     {
-        Task<List<ToDoItem>> GetAllAsync();
+        Task<List<ToDoItemDto>> GetAllAsync();
 
-        Task<ToDoItem> GetByIdAsync(int id);
+        Task<ToDoItemDto> GetByIdAsync(int id);
 
-        Task<ToDoItem> AddAsync(AddToDoItemDto addTodoItemDto);
+        Task<ToDoItemDto> AddAsync(AddToDoItemDto addTodoItemDto);
 
         Task<bool> UpdateByIdAsync(int id, UpdateToDoItemDto updateToDoItemDto);
 

@@ -24,13 +24,13 @@ namespace WebApi.Controllers
         /// Gets all the TodoItems
         /// </summary>
         /// <returns>
-        /// A collection of <see cref="ToDoItem"/> available
+        /// A collection of <see cref="ToDoItemDto"/> available
         /// </returns>
         /// <response code="200">Found successfully.</response>
         /// <response code="401">Your user account does not contain the authorization required to access this API end-point</response>
         /// <response code="403">Your user account does not have permission to access this resource</response>
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ToDoItem>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<ToDoItemDto>))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = null)]
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = null)]
         public async Task<ActionResult> GetAll()
@@ -43,17 +43,17 @@ namespace WebApi.Controllers
         /// <summary>
         /// Gets a ToDoItem by Id
         /// </summary>
-        /// <returns>An instance of <see cref="ToDoItem"/></returns>
+        /// <returns>An instance of <see cref="ToDoItemDto"/></returns>
         /// <response code="200">Found successfully</response>
         /// <response code="401">Your user account does not contain the authorization required to access this API end-point</response>
         /// <response code="403">Your user account does not have permission to access this resource</response>
         /// <response code="404">Not found</response>
         [HttpGet("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ToDoItem))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ToDoItemDto))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = null)]
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = null)]
         [ProducesResponseType(StatusCodes.Status404NotFound, Type = null)]
-        public async Task<ActionResult<ToDoItem>> GetById(int id)
+        public async Task<ActionResult> GetById(int id)
         {
             var result = await _toDoItemService.GetByIdAsync(id);
 
@@ -71,14 +71,14 @@ namespace WebApi.Controllers
         /// </summary>
         /// <param name="addToDoItemDto">ToDoItem information to be created</param>
         /// <returns>
-        ///  An instance of <see cref="ToDoItem"/>
+        ///  An instance of <see cref="ToDoItemDto"/>
         /// </returns>
         /// <response code="201">Added successfully</response>
         /// <response code="400">Bad request, invalid input information was supplied</response>
         /// <response code="401">Your user account does not contain the authorization required to access this API end-point</response>
         /// <response code="403">Your user account does not have permission to access this resource</response>
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ToDoItem))]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ToDoItemDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest, Type = null)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized, Type = null)]
         [ProducesResponseType(StatusCodes.Status403Forbidden, Type = null)]
