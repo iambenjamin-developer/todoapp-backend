@@ -53,7 +53,9 @@ namespace WebApi
 
             services.AddScoped<IToDoItemService, ToDoItemService>();
             services.AddScoped<IToDoItemRepository, ToDoItemRepository>();
-            
+
+            services.AddAutoMapper(typeof(Startup));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
