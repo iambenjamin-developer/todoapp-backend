@@ -10,7 +10,7 @@ using WebApi.Infrastructure;
 namespace WebApi.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220413115820_Initial")]
+    [Migration("20220413120215_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,7 @@ namespace WebApi.Infrastructure.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("DateCompleted")
+                    b.Property<DateTime?>("DateCompleted")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsCompleted")

@@ -15,7 +15,7 @@ namespace WebApi.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     TaskName = table.Column<string>(type: "varchar(256)", unicode: false, maxLength: 256, nullable: false),
                     IsCompleted = table.Column<bool>(type: "bit", nullable: false),
-                    DateCompleted = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DateCompleted = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
