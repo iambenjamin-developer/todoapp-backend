@@ -15,7 +15,6 @@ services:
     ports:
     - 5025:5025
     environment:
-    - ASPNETCORE_URLS=http://0.0.0.0:5025
     - ASPNETCORE_ENVIRONMENT=Development
     - DefaultConnection=Initial Catalog=MyDockerToDoDb; Data Source=ms-sql-server,1450; Persist Security Info=True;User ID=SA;Password= 2Secure*Password2
     build:
