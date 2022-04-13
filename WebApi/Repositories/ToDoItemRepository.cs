@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace WebApi.Repositories
         {
             var entity = new ToDoItem
             {
-                Name = addTodoItemDto.Name,
+                TaskName = addTodoItemDto.Name,
                 IsCompleted = false
             };
 
@@ -87,6 +88,15 @@ namespace WebApi.Repositories
                           .FirstOrDefaultAsync();
 
                 entity.IsCompleted = updateRangeToDoItemsDto.MarkAsCompleted;
+
+                if (updateRangeToDoItemsDto.MarkAsCompleted == true)
+                {
+                    entity.DateCompleted = DateTime.Now;
+                }
+                else
+                {
+                    entity.DateCompleted = null;
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -105,6 +115,15 @@ namespace WebApi.Repositories
 
             entity.IsCompleted = updateToDoItemDto.MarkAsCompleted;
 
+            if (updateToDoItemDto.MarkAsCompleted == true)
+            {
+                entity.DateCompleted = DateTime.Now;
+            }
+            else
+            {
+                entity.DateCompleted = null;
+            }
+         
             await _context.SaveChangesAsync();
 
             return true;

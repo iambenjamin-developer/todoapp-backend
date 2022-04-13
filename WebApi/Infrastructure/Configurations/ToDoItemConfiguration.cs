@@ -12,7 +12,7 @@ namespace WebApi.Infrastructure.Configurations
 
             builder.HasKey(e => e.Id);
 
-            builder.Property(x => x.Name)
+            builder.Property(x => x.TaskName)
                   .HasMaxLength(256)
                   .IsUnicode(false)
                   .IsRequired();
