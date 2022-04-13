@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebApi.Entities;
-using WebApi.Infrastructure;
 using WebApi.Interfaces;
 using WebApi.Models;
 
@@ -11,102 +8,51 @@ namespace WebApi.Services
 {
     public class ToDoItemService : IToDoItemService
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IToDoItemRepository _toDoItemRepository;
 
-        public ToDoItemService(ApplicationDbContext context)
+        public ToDoItemService(IToDoItemRepository toDoItemRepository)
         {
-            _context = context;
+            _toDoItemRepository = toDoItemRepository;
         }
 
         public async Task<List<ToDoItem>> GetAllAsync()
         {
-            var result = await _context.ToDoItems.ToListAsync();
+            var result = await _toDoItemRepository.GetAllAsync();
 
             return result;
         }
 
         public async Task<ToDoItem> GetByIdAsync(int id)
         {
-            var result = await _context.ToDoItems
-                                .Where(x => x.Id == id)
-                                .FirstOrDefaultAsync();
+            var result = await _toDoItemRepository.GetByIdAsync(id);
 
             return result;
         }
 
         public async Task<ToDoItem> AddAsync(AddToDoItemDto addTodoItemDto)
         {
-            var entity = new ToDoItem
-            {
-                Name = addTodoItemDto.Name,
-                IsCompleted = false
-            };
-
-            _context.Add(entity);
-
-            await _context.SaveChangesAsync();
+            var entity = await _toDoItemRepository.AddAsync(addTodoItemDto);
 
             return entity;
         }
 
         public async Task<bool> DeleteByIdAsync(int id)
         {
+            var result = await _toDoItemRepository.DeleteByIdAsync(id);
 
-            var entity = await _context.ToDoItems
-                         .Where(x => x.Id == id)
-                         .FirstOrDefaultAsync();
-
-            if (entity == null)
-            {
-                return false;
-            }
-
-            _context.Remove(entity);
-
-
-            var result = await _context.SaveChangesAsync();
-
-            if (result == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-
+            return result;
         }
 
         public async Task UpdateRangeToDoItemsAsync(UpdateRangeToDoItemsDto updateRangeToDoItemsDto)
         {
-            foreach (var toDoItemId in updateRangeToDoItemsDto.ToDoItemIds)
-            {
-                var entity = await _context.ToDoItems
-                          .Where(x => x.Id == toDoItemId)
-                          .FirstOrDefaultAsync();
-
-                entity.IsCompleted = updateRangeToDoItemsDto.MarkAsCompleted;
-            }
-
-            await _context.SaveChangesAsync();
+            await _toDoItemRepository.UpdateRangeToDoItemsAsync(updateRangeToDoItemsDto);
         }
 
         public async Task<bool> UpdateByIdAsync(int id, UpdateToDoItemDto updateToDoItemDto)
         {
-            var entity = await _context.ToDoItems
-                      .Where(x => x.Id == id)
-                      .FirstOrDefaultAsync();
+            var result = await _toDoItemRepository.UpdateByIdAsync(id, updateToDoItemDto);
 
-            if (entity == null)
-            {
-                return false;
-            }
-
-            entity.IsCompleted = updateToDoItemDto.MarkAsCompleted;
-
-            await _context.SaveChangesAsync();
-
-            return true;
+            return result;
         }
     }
 }
