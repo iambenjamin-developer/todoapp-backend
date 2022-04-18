@@ -32,10 +32,15 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=2Secure*Password2" -p 1450:1433 --
 ## Correr docker compose
 Ir a la ruta donde esta el Dockerfile y el docker-compose
 ```
-cd C:\Users\benja\source\repos\TODO-APP\todoapp-backend\WebApi
+cd C:\Users\benja\source\repos\TODO-APP\todoapp-backend
 ```
 
 Iniciar docker-compose
 ```
 docker-compose up -d
+```
+
+Parar docker-compose
+```
+docker-compose stop
 ```
