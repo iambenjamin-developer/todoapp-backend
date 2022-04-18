@@ -23,3 +23,15 @@ services:
         dockerfile: WebApi/Dockerfile
     depends_on:
     - sqldata
+
+  todo-app-frontend:
+    image: todo-app-frontend
+    container_name: todo-app-frontend
+    ports:
+    - 8080:8080
+    build:
+        context: ../todoapp-frontend/.
+        dockerfile: Dockerfile
+    depends_on:
+    - sqldata
+    - todo-app-backend
