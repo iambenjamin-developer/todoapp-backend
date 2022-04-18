@@ -26,9 +26,8 @@ services:
 
   todo-app-frontend:
     image: todo-app-frontend
-    container_name: todo-app-frontend
     ports:
-    - 8080:8080
+    - 8080-8083:8080
     build:
         context: ../todoapp-frontend/.
         dockerfile: Dockerfile

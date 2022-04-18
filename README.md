@@ -44,3 +44,8 @@ Parar docker-compose
 ```
 docker-compose stop
 ```
+
+Iniciar docker-compose con 1 instancia de 
+```
+docker-compose up -d --scale todo-app-frontend=4
+```
