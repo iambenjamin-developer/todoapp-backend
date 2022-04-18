@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+
+  sqldata:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sqldata
+    ports:
+      - 1450:1433
+    environment:
+      - SA_PASSWORD=Mypassword*7
+      - ACCEPT_EULA=Y
+
+  todo-app-backend:
+    image: todo-app-backend
+    container_name: todo-app-backend
+    ports:
+    - 5025:5025
+    environment:
+    - ASPNETCORE_ENVIRONMENT=Development
+    build:
+        context: .
+        dockerfile: WebApi/Dockerfile
+    depends_on:
+    - sqldata
