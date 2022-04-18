@@ -63,7 +63,11 @@ namespace WebApi
         {
             app.UseCors(options =>
             {
-                options.WithOrigins("http://localhost:8080", "http://localhost:3000");
+                options.WithOrigins("http://localhost:8080",
+                                    "http://localhost:8081",
+                                    "http://localhost:8082",
+                                    "http://localhost:8083");
+
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
             });
