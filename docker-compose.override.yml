@@ -8,8 +8,8 @@ services:
     ports:
     - 8080:8080
     build:
-        context: ../../todoapp-frontend/.
+        context: ../todoapp-frontend/.
         dockerfile: Dockerfile
     depends_on:
-    - ms-sql-server
+    - sqldata
     - todo-app-backend
