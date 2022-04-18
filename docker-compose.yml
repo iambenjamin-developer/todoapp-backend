@@ -13,9 +13,8 @@ services:
 
   todo-app-backend:
     image: todo-app-backend
-    container_name: todo-app-backend
     ports:
-    - 5025:5025
+    - 5025-5026:5025
     environment:
     - ASPNETCORE_ENVIRONMENT=Development
     build:

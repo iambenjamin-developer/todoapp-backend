@@ -18,16 +18,16 @@ namespace WebApi
         {
             var host = CreateHostBuilder(args).Build();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
+            // using (var scope = host.Services.CreateScope())
+            // {
+            //     var services = scope.ServiceProvider;
 
-                var context = services.GetRequiredService<ApplicationDbContext>();
-                if (context.Database.GetPendingMigrations().Any())
-                {
-                    context.Database.Migrate();
-                }
-            }
+            //     var context = services.GetRequiredService<ApplicationDbContext>();
+            //     if (context.Database.GetPendingMigrations().Any())
+            //     {
+            //         context.Database.Migrate();
+            //     }
+            // }
 
             host.Run();
         }

@@ -45,7 +45,12 @@ Parar docker-compose
 docker-compose stop
 ```
 
-Iniciar docker-compose con 1 instancia de 
+Iniciar docker-compose con 2 instancias de un servicio 
 ```
-docker-compose up -d --scale todo-app-frontend=4
+docker-compose up -d --scale todo-app-frontend=2
+```
+
+Iniciar docker-compose con varias instancias de varios servicios 
+```
+docker-compose up -d --scale todo-app-backend=2 --scale todo-app-frontend=4
 ```
